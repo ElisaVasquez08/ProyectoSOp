@@ -1,80 +1,76 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tuiter;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.Calendar;
-import javax.swing.JOptionPane;
+package usuarios.modelo_datos;
 
-/**
- *
- * @author Elisa Vasquez
- */
-public final class Usuario {
-    //Declaracion de Variables
-    RandomAccessFile User;
 
-    public Usuario(String nombre, char genero, String user, String pass, int edad, boolean estado) {
-        try {
-            File files = new File("src\\Datos del Programa");
-            files.mkdirs();
-            User = new RandomAccessFile("src\\Datos del Programa\\Usuarios.twc", "rw");
+public class Usuario
+{
+    private String id;
+    private String nombre;
+    private String Apellido;
+    private String nivel;
+    private String password;
 
-        } catch (IOException e) {
-            System.out.println("Error");
-        }
-        try {
-            this.agregarUsuario(nombre, genero, user, pass, edad, estado);
-            this.CrearFolderArchivos(user);
-        } catch (IOException e) {
-
-        }
-
+    public Usuario(String id, String nombre, String Apellido, String nivel, String password) 
+    {
+        this.id = id;
+        this.nombre = nombre;
+        this.Apellido = Apellido;
+        this.nivel = nivel;
+        this.password = password;
     }
 
-    public void agregarUsuario(String Nombre, char Genero, String Usuario, String Pass, int Edad, boolean activa) throws IOException {
-        User.seek(User.length());
-        User.writeUTF(Nombre);
-        User.writeChar(Genero);
-        User.writeUTF(Usuario);
-        User.writeUTF(Pass);
-        User.writeLong(Calendar.getInstance().getTimeInMillis());
-        User.writeInt(Edad);
-        User.writeBoolean(activa);
-
+    
+    public String getPassword() 
+    {
+        return password;
     }
 
-       public void CrearFolderArchivos(String Username) {
-        crearFolder(new File("src\\Datos del Programa\\" + Username));
-
-        try {
-            crearArchivo(new File("src\\Datos del Programa\\" + Username + "\\" + "following.twc"));
-            crearArchivo(new File("src\\Datos del Programa\\" + Username + "\\" + "followers.twc"));
-            crearArchivo(new File("src\\Datos del Programa\\" + Username + "\\" + "twits.twc"));
-            crearArchivo(new File("src\\Datos del Programa\\" + Username + "\\" + "Perfil"));
-        } catch (IOException E) {
-
-        }
-
-    }
-    public void crearArchivo(File NuevoUsuario) throws IOException {
-        //NO es necesario hacer validaciones porque es una carpeta nueva y su duplicacion ya se verifico desde crear usuario
-        NuevoUsuario.createNewFile();
+    public void setPassword(String password) 
+    {
+        this.password = password;
     }
 
-    public void crearFolder(File Usuario) {
 
-        if (Usuario.mkdirs()) {
-            JOptionPane.showMessageDialog(null, "Se creo el Usuario con Exito");
+    public String getNivel() 
+    {
+        return nivel;
+    }
 
-        } else {
-            JOptionPane.showMessageDialog(null, "El Usuario no ha sido Creado");
-        }
+    public void setNivel(String nivel)
+    {
+        this.nivel = nivel;
+    }
 
+
+    public String getApellido() 
+    {
+        return Apellido;
+    }
+
+    public void setApellido(String Apellido)
+    {
+        this.Apellido = Apellido;
+    }
+
+    
+    public String getNombre() 
+    {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) 
+    {
+        this.nombre = nombre;
+    }
+
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
     }
 }
